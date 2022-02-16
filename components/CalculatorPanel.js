@@ -1,24 +1,25 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { View, StyleSheet } from "react-native";
 
 import CalculatorButton from "./CalculatorButton";
 import { CalculatorDisplay } from "./CalculatorDisplay";
 
-export default class CalculatorPanel extends Component {
-  render() {
-    const dataForCalculator = require("../data/calculatorProperties.json");
-    const numbersStructure = dataForCalculator.numbers.map((number) => {
-      return <CalculatorButton number={number} />;
-    });
+export const CalculatorPanel = () => {
+  const [firstValue, setFirstValue] = useState(0);
+  const [secondValue, setSecondValue] = useState(0);
 
-    return (
-      <View style={styles.calculator}>
-        <CalculatorDisplay />
-        <View style={styles.keyboard}>{numbersStructure}</View>
-      </View>
-    );
-  }
-}
+  const dataForCalculator = require("../data/calculatorProperties.json");
+  const numbersStructure = dataForCalculator.numbers.map((number) => {
+    return <CalculatorButton number={number} />;
+  });
+
+  return (
+    <View style={styles.calculator}>
+      <CalculatorDisplay firstValue={firstValue} secondValue={secondValue} />
+      <View style={styles.keyboard}>{numbersStructure}</View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   calculator: {
